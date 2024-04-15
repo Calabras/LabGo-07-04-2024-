@@ -1,4 +1,5 @@
 #include "Header.h"
+#include "IOBserver.h"
 #include "Hero.h"
 #include "Exceptions.h"
 //возвращает i
@@ -11,16 +12,38 @@ ostream& operator<<(ostream& out, const Hero& h) {
     return out;
 }
 //увеличивает число монет
-void Hero::addcoins() { coins++; }
+void Hero::addcoins() {
+	coins++; 
+}
 //возвращает число монет
 int Hero::getcoins() const {
 	return coins;
 }
+//возвращает число шагов героя
+int Hero::getsteps() const {
+	return steps;
+}
+//увеличить число шагов
+void Hero::addsteps() {
+	steps++;
+}
 //убрать жизнь
-void Hero::removehealth() { health--;
-if (health == 0) throw HeroHealthExceptions();
+void Hero::removehealth() {
+	health--;
+	if (health == 0) throw HeroHealthExceptions();
 }
 //вернуть число хп
 int Hero::gethealth() const {
 	return health;
+}
+//cобытие
+void Hero::evnt() {
+	for (IOBserver* o : allObserver)
+	{
+		o->evnt(*this);
+	}
+}
+//push back
+void Hero::addObserver(IOBserver* o) {
+	allObserver.push_back(o);
 }

@@ -133,6 +133,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="HeroCell.cpp" />
+    <ClCompile Include="IOBserver.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Moneta.cpp" />
     <ClCompile Include="Monsters.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Header.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="HeroCell.h" />
+    <ClInclude Include="IOBserver.h" />
     <ClInclude Include="Moneta.h" />
     <ClInclude Include="Monsters.h" />
     <ClInclude Include="Wall.h" />

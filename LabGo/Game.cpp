@@ -38,12 +38,10 @@ void Game::setHeroPose(int i, int j) {
 	catch (MonstersExceptions& exceptions) {
 		exceptions.show();
 	}
-	/*catch (HeroHealthExceptions& exceptions) {
-		exceptions.show();
-	}*/
 	catch (HeroWin& exceptions) {
 		exceptions.show();
 	}
+	evnt();
 }
 void Game::TotalCoins() {
 	for (int i = 0; i < labirint.getrows(); ++i) {
@@ -86,42 +84,11 @@ void Game::move(ACTION act)
 	setHeroPose(ip, jp);
 }
 
-//перегрузка вывода << игры
 ostream& operator<<(ostream& out, const Game& g) {
-
-	//позиция героя
-	int ip = g.hero.geti();
-	int jp = g.hero.getj();
-
-	//размеры лабиринта
-	int lab_height = g.labirint.getrows();
-	int lab_width = g.labirint.getcols();
-
-
-	//отображение клеток вокруг персонажа (крайние)
-	int start_i;
-	if (ip-1>0) start_i = ip-1; else start_i = 0;
-	int end_i;
-	if (ip+1<lab_height - 1) end_i = ip+1; else end_i = lab_height - 1;
-	int start_j;
-	if (jp-1>0) start_j = jp-1; else start_j = 0;
-	int end_j;
-	if (jp+1<lab_width - 1) end_j = jp+1; else end_j = lab_width - 1;
-
-	for (int i = start_i-2; i <= end_i+2; i++) {
-		for (int j = start_j-2; j <= end_j+2; j++) {
-			if (i < 0 || i >= lab_height || j < 0 || j >= lab_width) {
-				out << "/";
-			}
-			else {
-				g.labirint[0][0] = new Wall();
-				out << *(g.labirint[i][j]);
-			}
-		}
-		out << endl;
-	}
+	g.displayLab(out);
 	return out;
 }
+
 
 //реализация считывания из файла лабиринта
 void Game::readfromfile2(const string& filename) {
@@ -134,6 +101,9 @@ void Game::readfromfile2(const string& filename) {
 		DynamicLab tempLab(newrows, newcols, counthealth);
 		this->labirint = tempLab; //использование и перегрузка присваивания
 		file >> this->labirint;
+		//нужно для стенки в 0 и 0
+		delete labirint[0][0];
+		labirint[0][0] = new Wall();
 	}
 	else {
 		cerr << "Error with opening of file: " << filename << endl;
@@ -156,11 +126,31 @@ void Game::writeinfile(const string& filename) {
 	}
 
 }
-//выводить число монеток
-void Game::displayCoins() const {
-	cout << "Total Coins of hero: " << hero.getcoins() << endl;
-}
-//выводить число хп
-void Game::displayHealth() const {
-	cout << "Your Heath:  " << hero.gethealth() <<  " hp" << endl;
+
+void Game::displayLab(ostream& out) const{
+	int ip = hero.geti();
+	int jp = hero.getj();
+	int lab_height = labirint.getrows();
+	int lab_width = labirint.getcols();
+
+	int start_i;
+	if (ip-1>0) start_i = ip-1; else start_i = 0;
+	int end_i;
+	if (ip+1<lab_height - 1) end_i = ip+1; else end_i = lab_height - 1;
+	int start_j;
+	if (jp-1>0) start_j = jp-1; else start_j = 0;
+	int end_j;
+	if (jp+1<lab_width - 1) end_j = jp+1; else end_j = lab_width - 1;
+
+	for (int i = start_i-2; i <= end_i+2; i++) {
+		for (int j = start_j-2; j <= end_j+2; j++) {
+			if (i < 0 || i >= lab_height || j < 0 || j >= lab_width) {
+				out << "/";
+			}
+			else {
+				out << *(labirint[i][j]);
+			}
+		}
+		out << endl;
+	}
 }

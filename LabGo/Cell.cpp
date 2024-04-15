@@ -5,10 +5,6 @@
 #include "Monsters.h"
 #include "EmptyCell.h"
 
-//узнать состояние текущей клетки
-//bool Cell::cansethero() {
-//    return true;
-//}
 // Перегрузка оператора вывода для класса Cell
 ostream& operator<<(ostream& out, const Cell& cell) {
     cell.print(out);

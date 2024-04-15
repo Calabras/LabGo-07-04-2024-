@@ -2,6 +2,7 @@
 #include "Game.h"
 #include <fstream>
 #include "Exceptions.h"
+#include "IOBserver.h"
 using namespace std;
 
 int main() {
@@ -12,35 +13,30 @@ int main() {
     g.TotalCoins();
     //начальная позиция
     g.setHeroPose(1, 1);
-    unsigned int val = 0;
-    cout << g;
-    cout << "Total Coins:  " << g.getHero().getcoins() << endl;
-    cout << "Total Health: " << g.getHero().gethealth() << " hp" << endl;
+
+    Hero& hero = g.getHero();
+
+    //все наблюдатели
+    ViewHealth healthView(cout);
+    ViewPosition positionView(cout);
+    ViewCoins coinsView(cout);
+    ViewTotalSteps stepsView(cout);
+    ViewLabirint labirintView(g, cout);
+
+    
+    hero.addObserver(&healthView);
+    hero.addObserver(&positionView);
+    hero.addObserver(&coinsView);
+    hero.addObserver(&stepsView);
+    g.addObserver(&labirintView);
+    
+
+    Controller heroController(hero, g);
     try {
-        val = _getch();
+        int val = _getch();
         while (val != 27) {
             system("cls");
-
-            if (val == 224) {
-                val = _getch();
-            }
-            switch (val) {
-            case 80:
-                g.move(DOWN);
-                break;
-            case 72:
-                g.move(UP);
-                break;
-            case 75:
-                g.move(LEFT);
-                break;
-            case 77:
-                g.move(RIGHT);
-                break;
-            }
-            cout << g;
-            cout << "Total Coins:  " << g.getHero().getcoins() << endl;
-            cout << "Total Health: " << g.getHero().gethealth() << " hp" << endl;
+            heroController.changepose(val);
             val = _getch();
         }
     }
