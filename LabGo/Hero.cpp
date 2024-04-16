@@ -36,14 +36,3 @@ void Hero::removehealth() {
 int Hero::gethealth() const {
 	return health;
 }
-//cобытие
-void Hero::evnt() {
-	for (IOBserver* o : allObserver)
-	{
-		o->evnt(*this);
-	}
-}
-//push back
-void Hero::addObserver(IOBserver* o) {
-	allObserver.push_back(o);
-}

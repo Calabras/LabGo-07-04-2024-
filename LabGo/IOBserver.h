@@ -3,35 +3,35 @@ class Game;
 class Hero;
 class IOBserver {
 public:
-	virtual void evnt(Hero& hero) = 0; //событие
+	virtual void evnt(Game & g) = 0; //событие
 };
 
 class ViewHealth : public IOBserver {
 	ostream& out;
 public:
 	ViewHealth(ostream& _out) : out(_out) {};
-	void evnt(Hero& hero);
+	void evnt(Game& g);
 };
 
 class ViewPosition : public IOBserver {
 	ostream& out;
 public:
 	ViewPosition(ostream& _out) : out(_out) {};
-	void evnt(Hero& hero);
+	void evnt(Game &g);
 };
 
 class ViewCoins : public IOBserver {
 	ostream& out;
 public:
 	ViewCoins(ostream& _out) : out(_out) {};
-	void evnt(Hero& hero);
+	void evnt(Game& g);
 };
 
 class ViewTotalSteps : public IOBserver {
 	ostream& out;
 public:
 	ViewTotalSteps(ostream& _out) : out(_out) {};
-	void evnt(Hero& hero);
+	void evnt(Game& g);
 };
 
 class ViewLabirint : public IOBserver {
@@ -39,13 +39,13 @@ class ViewLabirint : public IOBserver {
 	ostream& out;
 public:
 	ViewLabirint(Game& g, ostream& o): g(g), out(o) {};
-	void evnt(Hero& hero);
+	void evnt(Game& g);
 };
 
 class Controller {
-	Hero& hero;
+	//Hero& hero;
 	Game& g;
 public:
-	Controller(Hero& _hero, Game& _g) : hero(_hero), g(_g) {}
+	Controller(Game& _g) : g(_g) {}
 	void changepose(int val);
 };

@@ -2,6 +2,7 @@
 #include "DynamicLab.h"
 #include <iostream>
 #include "IOBserver.h"
+#include <vector>
 using namespace std;
 
 enum ACTION //перечисление define переменных - возможные ходы
@@ -27,7 +28,7 @@ public:
 	void evnt() {
 		for (IOBserver* o : allObservers)
 		{
-			o->evnt(hero);
+			o->evnt(*this);
 		}
 	}
 	void readfromfile2(const string& filename);

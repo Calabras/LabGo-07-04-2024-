@@ -1,46 +1,46 @@
 #include "Game.h"
 #include "IOBserver.h"
 
-void ViewHealth::evnt(Hero& hero) {
-		out << "Total Health: " << hero.gethealth() << " hp" << endl;
+void ViewHealth::evnt(Game& g) {
+		out << "Total Health: " << g.getHero().gethealth() << " hp" << endl;
 }
 
-void ViewPosition::evnt(Hero& hero) {
-		out << "Current Position: (" << hero.geti() << ";" << hero.getj() << ")" << endl;
+void ViewPosition::evnt(Game& g) {
+		out << "Current Position: (" << g.getHero().geti() << ";" << g.getHero().getj() << ")" << endl;
 }
 
-void ViewCoins::evnt(Hero& hero) {
-		out << "Total Coins: " << hero.getcoins() << endl;
+void ViewCoins::evnt(Game& g) {
+		out << "Total Coins: " << g.getHero().getcoins() << endl;
 }
 
-void ViewTotalSteps::evnt(Hero& hero) {
-    out << "Total Steps: " << hero.getsteps() << endl;
+void ViewTotalSteps::evnt(Game& g) {
+    out << "Total Steps: " << g.getHero().getsteps() << endl;
 }
 
-void ViewLabirint::evnt(Hero& hero) {
+void ViewLabirint::evnt(Game& g) {
 	g.displayLab(out);
 }
 
 
 //контроллер передвижения героя
 void Controller::changepose(int val) {
-    int ip = hero.geti(), jp = hero.getj();
+    int ip = g.getHero().geti(), jp = g.getHero().getj();
     switch (val) {
     case 80: // down
         g.setHeroPose(ip + 1, jp);
-        hero.addsteps();
+        g.getHero().addsteps();
         break;
     case 72: //up
         g.setHeroPose(ip - 1, jp);
-        hero.addsteps();
+        g.getHero().addsteps();
         break;
     case 75: //left
         g.setHeroPose(ip, jp - 1);
-        hero.addsteps();
+        g.getHero().addsteps();
         break;
     case 77: //right
         g.setHeroPose(ip, jp + 1);
-        hero.addsteps();
+        g.getHero().addsteps();
         break;
     }
 }

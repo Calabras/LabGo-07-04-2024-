@@ -24,14 +24,14 @@ int main() {
     ViewLabirint labirintView(g, cout);
 
     
-    hero.addObserver(&healthView);
-    hero.addObserver(&positionView);
-    hero.addObserver(&coinsView);
-    hero.addObserver(&stepsView);
+    g.addObserver(&healthView);
+    g.addObserver(&positionView);
+    g.addObserver(&coinsView);
+    g.addObserver(&stepsView);
     g.addObserver(&labirintView);
     
 
-    Controller heroController(hero, g);
+    Controller heroController(g);
     try {
         int val = _getch();
         while (val != 27) {

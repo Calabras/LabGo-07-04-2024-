@@ -1,15 +1,10 @@
 #pragma once
 #include <iostream>
-#include <vector>
-class IOBserver;
 using namespace std;
 class Hero
 {
 	int i, j, coins, steps = 0;
-	vector <IOBserver*> allObserver;
 public:
-	void evnt();
-	void addObserver(IOBserver* o);
 	//позиция персонажа (изменение позиции персонажа)
 	int health = 3;
 	Hero(int _i=0, int _j=0) {
@@ -32,7 +27,6 @@ public:
 	void move(int _i = 0, int _j = 0) {
 		i = _i;
 		j = _j;
-		evnt();
 	}
 	//печать персонажа
 	friend ostream& operator<<(ostream& out, const Hero& h);
